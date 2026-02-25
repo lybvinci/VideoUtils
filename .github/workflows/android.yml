@@ -13,6 +13,11 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      VIDEO_UTILS_KEYSTORE_BASE64: ${{ secrets.VIDEO_UTILS_KEYSTORE_BASE64 }}
+      VIDEO_UTILS_STORE_PASSWORD: ${{ secrets.VIDEO_UTILS_STORE_PASSWORD }}
+      VIDEO_UTILS_KEY_ALIAS: ${{ secrets.VIDEO_UTILS_KEY_ALIAS }}
+      VIDEO_UTILS_KEY_PASSWORD: ${{ secrets.VIDEO_UTILS_KEY_PASSWORD }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -37,36 +42,28 @@ jobs:
           path: app/build/outputs/apk/debug/*.apk
 
       - name: Prepare release keystore (optional)
-        if: ${{ secrets.VIDEO_UTILS_KEYSTORE_BASE64 != '' }}
+        if: ${{ env.VIDEO_UTILS_KEYSTORE_BASE64 != '' }}
         run: |
-          echo "${{ secrets.VIDEO_UTILS_KEYSTORE_BASE64 }}" | base64 -d > release.keystore
+          echo "$VIDEO_UTILS_KEYSTORE_BASE64" | base64 -d > release.keystore
           echo "VIDEO_UTILS_STORE_FILE=release.keystore" >> "$GITHUB_ENV"
 
       - name: Build Release APK (optional signing)
-        if: ${{ secrets.VIDEO_UTILS_KEYSTORE_BASE64 != '' }}
-        env:
-          VIDEO_UTILS_STORE_PASSWORD: ${{ secrets.VIDEO_UTILS_STORE_PASSWORD }}
-          VIDEO_UTILS_KEY_ALIAS: ${{ secrets.VIDEO_UTILS_KEY_ALIAS }}
-          VIDEO_UTILS_KEY_PASSWORD: ${{ secrets.VIDEO_UTILS_KEY_PASSWORD }}
+        if: ${{ env.VIDEO_UTILS_KEYSTORE_BASE64 != '' }}
         run: ./gradlew :app:assembleRelease --no-daemon
 
       - name: Upload Release APK
-        if: ${{ secrets.VIDEO_UTILS_KEYSTORE_BASE64 != '' }}
+        if: ${{ env.VIDEO_UTILS_KEYSTORE_BASE64 != '' }}
         uses: actions/upload-artifact@v4
         with:
           name: app-release-apk
           path: app/build/outputs/apk/release/*.apk
 
       - name: Build Release Bundle (AAB)
-        if: ${{ secrets.VIDEO_UTILS_KEYSTORE_BASE64 != '' }}
-        env:
-          VIDEO_UTILS_STORE_PASSWORD: ${{ secrets.VIDEO_UTILS_STORE_PASSWORD }}
-          VIDEO_UTILS_KEY_ALIAS: ${{ secrets.VIDEO_UTILS_KEY_ALIAS }}
-          VIDEO_UTILS_KEY_PASSWORD: ${{ secrets.VIDEO_UTILS_KEY_PASSWORD }}
+        if: ${{ env.VIDEO_UTILS_KEYSTORE_BASE64 != '' }}
         run: ./gradlew :app:bundleRelease --no-daemon
 
       - name: Upload Release AAB
-        if: ${{ secrets.VIDEO_UTILS_KEYSTORE_BASE64 != '' }}
+        if: ${{ env.VIDEO_UTILS_KEYSTORE_BASE64 != '' }}
         uses: actions/upload-artifact@v4
         with:
           name: app-release-aab
