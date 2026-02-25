@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">VideoUtils</string>
+    <string name="title_extract_audio">视频提取音频</string>
+    <string name="title_home">视频小工具</string>
+    <string name="title_settings">设置</string>
+    <string name="section_video_file">视频文件</string>
+    <string name="section_output_directory">存储位置</string>
+    <string name="section_theme">主题</string>
+    <string name="label_selected_video">已选择：%1$s</string>
+    <string name="label_selected_video_count">已选择：%1$d 个文件</string>
+    <string name="label_selected_video_more">还有 %1$d 个…</string>
+    <string name="label_output_path">输出路径</string>
+
+    <string name="btn_pick_from_files">从文件管理器选择</string>
+    <string name="btn_pick_from_gallery">从相册选择</string>
+    <string name="btn_pick_output_directory">选择存储位置</string>
+    <string name="btn_reset_to_default">恢复默认</string>
+    <string name="btn_start_extract">开始提取</string>
+    <string name="btn_extracting">提取中...</string>
+    <string name="btn_copy">复制</string>
+
+    <string name="msg_select_video_first">请先选择一个视频文件</string>
+    <string name="msg_write_permission_required">需要存储权限才能写入默认目录</string>
+    <string name="msg_create_output_failed">创建输出文件失败</string>
+    <string name="msg_extract_success">提取完成：%1$s</string>
+    <string name="msg_extract_failed">提取失败</string>
+    <string name="msg_extract_failed_for">失败：%1$s</string>
+    <string name="msg_extract_batch_done">已完成：%1$d/%2$d</string>
+    <string name="msg_mp3_not_supported_fallback_m4a">设备不支持 mp3 编码，已降级输出为 m4a</string>
+    <string name="msg_m4a_failed_fallback_mp3">m4a 转换失败，已尝试输出为 mp3</string>
+    <string name="msg_copied">已复制</string>
+
+    <string name="label_custom_directory">已选择自定义目录</string>
+    <string name="label_custom_directory_named">自定义目录：%1$s</string>
+
+    <string name="theme_follow_system">跟随系统</string>
+    <string name="theme_light">浅色</string>
+    <string name="theme_dark">深色</string>
+
+    <string name="cd_open_settings">打开设置</string>
+    <string name="cd_back">返回</string>
+</resources>
